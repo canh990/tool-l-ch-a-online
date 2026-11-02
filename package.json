@@ -1,0 +1,25 @@
+{
+  "name": "chua-online-tiktok-live-game",
+  "version": "1.0.0",
+  "description": "Chùa Online - TikTok LIVE Interactive Game & Stream Overlay",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "tiktok-live",
+    "stream-overlay",
+    "chua-online",
+    "interactive-game",
+    "socket.io"
+  ],
+  "author": "Senior Full-stack Developer",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "jimp": "^1.6.1",
+    "socket.io": "^4.8.1",
+    "tiktok-live-connector": "^2.5.0"
+  }
+}

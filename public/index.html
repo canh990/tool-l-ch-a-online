@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bảng Điều Khiển - Chùa Online TikTok LIVE Game</title>
+  <style>
+    :root {
+      --bg-dark: #120804;
+      --card-bg: #1c0e08;
+      --card-border: #4a2612;
+      --gold-primary: #f5ba23;
+      --gold-hover: #ffd700;
+      --gold-light: #fff3c4;
+      --red-accent: #c42618;
+      --red-hover: #e03222;
+      --text-main: #f5ede6;
+      --text-muted: #ad9484;
+      --success: #2ec4b6;
+      --danger: #e71d36;
+      --warning: #ff9f1c;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      background: linear-gradient(135deg, #331306 0%, #1c0a03 100%);
+      border: 2px solid var(--gold-primary);
+      border-radius: 16px;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(245, 186, 35, 0.2);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-icon {
+      font-size: 36px;
+      filter: drop-shadow(0 0 10px var(--gold-primary));
+    }
+
+    .brand-text h1 {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--gold-primary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .brand-text p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .quick-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-gold {
+      background: linear-gradient(180deg, var(--gold-hover) 0%, var(--gold-primary) 100%);
+      color: #3b1e02;
+      box-shadow: 0 4px 14px rgba(245, 186, 35, 0.3);
+    }
+    .btn-gold:hover {
+      background: #ffe04d;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(245, 186, 35, 0.5);
+    }
+
+    .btn-red {
+      background: linear-gradient(180deg, var(--red-hover) 0%, var(--red-accent) 100%);
+      color: #fff;
+    }
+    .btn-red:hover {
+      background: #f03a2a;
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: #2a160d;
+      color: var(--text-main);
+      border: 1px solid var(--card-border);
+    }
+    .btn-secondary:hover {
+      background: #3d2013;
+      border-color: var(--gold-primary);
+    }
+
+    /* Grid Layout */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--gold-light);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px dashed var(--card-border);
+      padding-bottom: 10px;
+    }
+
+    /* Kết nối TikTok */
+    .connect-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .input-field {
+      flex: 1;
+      padding: 10px 14px;
+      background: #100602;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .input-field:focus {
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 8px rgba(245, 186, 35, 0.3);
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-top: 6px;
+    }
+
+    .status-disconnected {
+      background: rgba(231, 29, 54, 0.15);
+      color: #ff6b7b;
+      border: 1px solid rgba(231, 29, 54, 0.4);
+    }
+    .status-connecting {
+      background: rgba(255, 159, 28, 0.15);
+      color: #ffbc5e;
+      border: 1px solid rgba(255, 159, 28, 0.4);
+    }
+    .status-connected {
+      background: rgba(46, 196, 182, 0.15);
+      color: #55f3e3;
+      border: 1px solid rgba(46, 196, 182, 0.4);
+    }
+
+    /* Thống kê nhanh (Stats) */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .stat-box {
+      background: #150904;
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .stat-val {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--gold-primary);
+      margin-top: 4px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Simulation Panel */
+    .sim-buttons {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .btn-sim {
+      padding: 14px 12px;
+      border-radius: 10px;
+      border: 1px solid #4a2817;
+      background: linear-gradient(180deg, #2a150c 0%, #1c0e07 100%);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.2s ease;
+      text-align: left;
+    }
+    .btn-sim:hover {
+      background: linear-gradient(180deg, #3d2012 0%, #29140a 100%);
+      border-color: var(--gold-primary);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+
+    .sim-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: normal;
+      margin-top: 2px;
+    }
+
+    /* Cấu hình cài đặt */
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    select.input-field {
+      cursor: pointer;
+    }
+
+    textarea.input-field {
+      resize: vertical;
+      min-height: 85px;
+      line-height: 1.4;
+    }
+
+    /* Bảng ánh xạ Quà */
+    .prayer-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+
+    .prayer-table th, .prayer-table td {
+      padding: 8px 10px;
+      font-size: 13px;
+      text-align: left;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .prayer-table th {
+      color: var(--gold-light);
+      background: #150904;
+    }
+
+    .prayer-table input {
+      width: 100%;
+      padding: 6px 8px;
+      background: #0f0502;
+      border: 1px solid #3d2012;
+      border-radius: 4px;
+      color: #fff;
+      font-size: 13px;
+    }
+
+    .prayer-table input:focus {
+      border-color: var(--gold-primary);
+      outline: none;
+    }
+
+    .btn-icon-del {
+      background: none;
+      border: none;
+      color: #e71d36;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 4px;
+    }
+
+    /* Slider & Switch */
+    .slider-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .slider {
+      flex: 1;
+      accent-color: var(--gold-primary);
+      cursor: pointer;
+    }
+
+    /* Danh sách người đang ngồi Preview */
+    .seats-preview {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 4px;
+      background: #110502;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 10px;
+      margin-top: 10px;
+    }
+
+    .seat-dot {
+      aspect-ratio: 1;
+      border-radius: 4px;
+      background: #251208;
+      border: 1px solid #3d2012;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      color: #553424;
+      cursor: default;
+      position: relative;
+    }
+
+    .seat-dot.active {
+      background: #d49320;
+      border-color: #ffd700;
+      color: #000;
+      font-weight: bold;
+      box-shadow: 0 0 6px rgba(255, 215, 0, 0.4);
+    }
+
+    .seat-dot:hover::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 110%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.9);
+      border: 1px solid #ffd700;
+      color: #fff;
+      padding: 3px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      white-space: nowrap;
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 20px;
+      padding-top: 14px;
+      border-top: 1px solid #2d160b;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- HEADER -->
+    <header>
+      <div class="brand">
+        <div class="brand-icon">🪷</div>
+        <div class="brand-text">
+          <h1>Chùa Online - TikTok LIVE Control</h1>
+          <p>Bảng điều khiển tương tác phòng LIVE chánh điện</p>
+        </div>
+      </div>
+      <div class="quick-actions">
+        <button class="btn btn-primary" onclick="testTempleBell()" style="background:linear-gradient(135deg, #ffd700, #ff8c00); color:#3b1e02; font-weight:900; box-shadow:0 4px 15px rgba(255,200,0,0.4);">
+          <span>🔔</span> Bật & Thử Âm Thanh Live
+        </button>
+        <button class="btn btn-secondary" onclick="reloadOverlay()" title="Tải lại màn hình Overlay trên TikTok LIVE Studio / OBS">
+          <span>🔄</span> Làm Mới Màn Hình Live
+        </button>
+        <a href="/overlay.html" target="_blank" class="btn btn-gold">
+          <span>📺</span> Mở Màn Hình Overlay
+        </a>
+        <button class="btn btn-secondary" onclick="copyOverlayUrl()">
+          <span>📋</span> Copy URL OBS / TikTok Studio
+        </button>
+      </div>
+    </header>
+
+    <!-- HƯỚNG DẪN KÍCH THƯỚC TIKTOK LIVE STUDIO & OBS -->
+    <div style="background: linear-gradient(90deg, rgba(255,215,0,0.12), rgba(255,140,0,0.08)); border: 1px solid rgba(255,215,0,0.6); border-radius: 10px; padding: 12px 18px; margin-bottom: 22px; display: flex; align-items: center; justify-content: space-between; gap: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.4);">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <span style="font-size: 26px;">📐</span>
+        <div>
+          <strong style="color: #ffd700; font-size: 14px;">Cài đặt chuẩn trong TikTok LIVE Studio để NÉT CĂNG 100% (Không bị mờ & Không viền đen):</strong>
+          <div style="font-size: 13px; color: #ffeb99; margin-top: 3px;">
+            Chiều rộng (Width): <b style="color:#fff; background:#581d09; padding:2px 7px; border-radius:4px; border:1px solid #ffd700;">1080</b> &nbsp;|&nbsp; 
+            Chiều cao (Height): <b style="color:#fff; background:#581d09; padding:2px 7px; border-radius:4px; border:1px solid #ffd700;">1920</b> &nbsp;|&nbsp;
+            Bấm nút <b>⤢ (Kéo vừa khung hình)</b> trên thanh công cụ để tràn toàn màn hình.
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-secondary" onclick="copyOverlayUrl()" style="white-space: nowrap; padding: 6px 14px; font-size: 13px; background:#ffd700; color:#3b1e02; font-weight:bold;">
+        📋 Copy Link
+      </button>
+    </div>
+
+    <!-- GRID NỘI DUNG CHÍNH -->
+    <div class="dashboard-grid">
+      
+      <!-- CỘT 1: KẾT NỐI TIKTOK & BỘ GIẢ LẬP TEST -->
+      <div>
+        
+        <!-- THẺ 1: KẾT NỐI TIKTOK LIVE -->
+        <div class="card" style="margin-bottom: 24px;">
+          <div class="card-title">
+            <span>🔴</span> Kết Nối TikTok LIVE
+          </div>
+          
+          <div class="connect-group">
+            <input type="text" id="tiktok-id-input" class="input-field" placeholder="Nhập TikTok ID (ví dụ: chuababy hoặc @username)" />
+            <button class="btn btn-gold" id="btn-connect" onclick="handleConnectTikTok()">
+              Kết Nối
+            </button>
+            <button class="btn btn-red" id="btn-disconnect" onclick="handleDisconnectTikTok()" style="display:none;">
+              Ngắt Kết Nối
+            </button>
+          </div>
+
+          <div style="margin-top: 10px; margin-bottom: 12px;">
+            <details style="cursor: pointer; font-size: 12px; color: var(--gold-light);">
+              <summary style="outline: none;">⚙️ Cài đặt nâng cao (TikTok Session ID nếu bị lỗi 403)</summary>
+              <div style="margin-top: 8px;">
+                <input type="text" id="tiktok-session-input" class="input-field" placeholder="Dán cookie sessionid nếu TikTok yêu cầu đăng nhập (F12 > Application > Cookies > sessionid)" style="font-size: 12px; padding: 8px 12px;" />
+              </div>
+            </details>
+          </div>
+
+          <div>
+            <span>Trạng thái: </span>
+            <span class="status-badge status-disconnected" id="tiktok-status-badge">
+              ⚪ Chưa kết nối
+            </span>
+          </div>
+
+          <!-- Thống kê nhanh -->
+          <div class="stats-row">
+            <div class="stat-box">
+              <div class="stat-label">Chỗ ngồi</div>
+              <div class="stat-val" id="stat-seats">0 / 60</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label">Tổng Công Đức</div>
+              <div class="stat-val" id="stat-diamonds">💎 0</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label">Top 1 Công Đức</div>
+              <div class="stat-val" id="stat-top1" style="font-size:16px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">---</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- THẺ 2: BỘ NÚT BẤM GIẢ LẬP / MÔ PHỎNG -->
+        <div class="card">
+          <div class="card-title">
+            <span>🎮</span> Bộ Nút Bấm Giả Lập (Test Simulation)
+          </div>
+          <p style="font-size:13px; color:var(--text-muted); margin-bottom:14px;">
+            Thử nghiệm toàn bộ hiệu ứng Camera Zoom, Chuông Chùa, Hào Quang và Bảng Công Đức mà không cần phát LIVE thật.
+          </p>
+
+          <div class="sim-buttons">
+            <button class="btn-sim" onclick="simAddMember(1)">
+              <span style="font-size:24px;">👤</span>
+              <div>
+                <div>+1 Người vào phòng</div>
+                <div class="sim-desc">Random tên & áo dài</div>
+              </div>
+            </button>
+
+            <button class="btn-sim" onclick="simAddMember(20)">
+              <span style="font-size:24px;">👥</span>
+              <div>
+                <div>+20 Người lấp đầy nhanh</div>
+                <div class="sim-desc">Thêm hàng loạt Phật tử</div>
+              </div>
+            </button>
+
+            <button class="btn-sim" onclick="simChatPray()">
+              <span style="font-size:24px;">💬</span>
+              <div>
+                <div>Niệm "A Di Đà Phật"</div>
+                <div class="sim-desc">Zoom cận cảnh & hiện lời cầu</div>
+              </div>
+            </button>
+
+            <button class="btn-sim" onclick="simChatMoPhat()">
+              <span style="font-size:24px;">🙏</span>
+              <div>
+                <div>Niệm "Mô Phật"</div>
+                <div class="sim-desc">Zoom cận cảnh & xướng danh</div>
+              </div>
+            </button>
+
+            <button class="btn-sim" onclick="simWelcome()">
+              <span style="font-size:24px;">👋</span>
+              <div>
+                <div>Chào Người Vào Xem</div>
+                <div class="sim-desc">Xếp chỗ & AI chào mừng</div>
+              </div>
+            </button>
+
+            <button class="btn-sim" onclick="simLike()">
+              <span style="font-size:24px;">❤️</span>
+              <div>
+                <div>Thả Tim (Like)</div>
+                <div class="sim-desc">Rải hoa sen & Cảm ơn</div>
+              </div>
+            </button>
+
+            <button class="btn-sim" onclick="simShare()">
+              <span style="font-size:24px;">↗️</span>
+              <div>
+                <div>Chia Sẻ (Share)</div>
+                <div class="sim-desc">Rung chuông & Tri ân</div>
+              </div>
+            </button>
+
+            <button class="btn-sim" onclick="simFollow()">
+              <span style="font-size:24px;">🔔</span>
+              <div>
+                <div>Theo Dõi (Follow)</div>
+                <div class="sim-desc">Rung chuông & Chúc phước lộc</div>
+              </div>
+            </button>
+
+            <button class="btn-sim" onclick="simGiftRose()">
+              <span style="font-size:24px;">🌹</span>
+              <div>
+                <div>Dâng Hoa Hồng (1 bông)</div>
+                <div class="sim-desc">Rải hoa rơi + Lời chúc ngẫu nhiên</div>
+              </div>
+            </button>
+
+            <button class="btn-sim" onclick="simGiftRoseCombo()">
+              <span style="font-size:24px;">💐</span>
+              <div>
+                <div>Dâng Combo Bông (x10)</div>
+                <div class="sim-desc">Mưa hoa hồng rực rỡ toàn màn hình</div>
+              </div>
+            </button>
+
+            <button class="btn-sim" onclick="simGiftPeach()">
+              <span style="font-size:24px;">🍑</span>
+              <div>
+                <div>Dâng Quả Đào (10 xu)</div>
+                <div class="sim-desc">Cầu Gia Đình Bình An</div>
+              </div>
+            </button>
+
+            <button class="btn-sim" onclick="simBigGift()">
+              <span style="font-size:24px;">🐉</span>
+              <div>
+                <div>Dâng Kim Long (1000 xu)</div>
+                <div class="sim-desc">Hào quang bùng nổ toàn màn hình</div>
+              </div>
+            </button>
+          </div>
+
+          <!-- Thử nghiệm bình luận tùy biến nổi trên đầu Phật tử -->
+          <div style="margin-top: 14px; display: flex; gap: 8px;">
+            <input type="text" id="sim-custom-comment" class="input-field" placeholder="Nhập bình luận thử nghiệm (VD: Cầu bình an mạnh khỏe...)" style="margin-bottom:0;" onkeydown="if(event.key==='Enter') simCustomChat()" />
+            <button class="btn btn-primary" onclick="simCustomChat()" style="white-space:nowrap; padding: 0 16px;">
+              <span>💬</span> Hiện Comment
+            </button>
+          </div>
+
+          <div style="margin-top: 16px; display: flex; justify-content: space-between; gap: 8px;">
+            <button class="btn btn-warning" onclick="simFullReset()" style="color:#ffd700; border: 1px solid rgba(255,215,0,0.5); background: rgba(255,215,0,0.1);">
+              <span>🏛️</span> Thử Nghiệm: Đầy 60 Ghế & Tự Reset
+            </button>
+            <button class="btn btn-secondary" onclick="clearAllSeats()" style="color:#ff6b7b;">
+              <span>🧹</span> Dọn Trống 60 Ghế
+            </button>
+          </div>
+
+          <!-- Sơ đồ mini 60 chỗ ngồi -->
+          <div style="margin-top: 16px;">
+            <div class="form-label">Sơ đồ 60 chỗ ngồi chánh điện (5 hàng x 12 ghế):</div>
+            <div class="seats-preview" id="seats-preview-grid">
+              <!-- 60 ô mini sinh bằng JS -->
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- CỘT 2: CẤU HÌNH GIAO DIỆN & HIỆU ỨNG TỨC THÌ -->
+      <div>
+        <div class="card">
+          <div class="card-title">
+            <span>⚙️</span> Cấu Hình Chùa & Màn Hình LIVE
+          </div>
+
+          <!-- 1. Tiêu đề chùa -->
+          <div class="form-group">
+            <label class="form-label">Tên Chùa / Tiêu Đề Hoành Phi:</label>
+            <input type="text" id="cfg-temple-title" class="input-field" value="CHÙA ONLINE BÌNH AN" />
+          </div>
+
+          <!-- 2. Bảng công đức & Từ khóa -->
+          <div class="dashboard-grid" style="gap:12px; margin-bottom:0;">
+            <div class="form-group">
+              <label class="form-label">Vị trí Bảng Công Đức:</label>
+              <select id="cfg-lb-pos" class="input-field">
+                <option value="bottom-right" selected>Góc Dưới - Phải (Chuẩn Live)</option>
+                <option value="bottom-left">Góc Dưới - Trái</option>
+                <option value="top-right">Góc Trên - Phải</option>
+                <option value="top-left">Góc Trên - Trái</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Hiển thị Bảng Công Đức:</label>
+              <select id="cfg-lb-show" class="input-field">
+                <option value="true">Bật (Hiển thị Top 5)</option>
+                <option value="false">Ẩn Bảng Công Đức</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- 3. Bật/Ẩn Cặp Câu Đối, Chào người xem & Từ khóa chat -->
+          <div class="dashboard-grid" style="gap:12px; margin-bottom:0;">
+            <div class="form-group">
+              <label class="form-label">Hiển thị Cặp Câu Đối 2 Bên:</label>
+              <select id="cfg-couplets-show" class="input-field">
+                <option value="true">Bật (Hiện 2 liễn câu đối đỏ)</option>
+                <option value="false">Ẩn (Tắt cặp câu đối)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Chào Người Xem Vào Live:</label>
+              <select id="cfg-welcome-viewer" class="input-field">
+                <option value="true" selected>Bật (Xếp chỗ & AI chào mừng)</option>
+                <option value="false">Tắt chào tự động</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-top:10px;">
+            <label class="form-label">Từ Khóa Chat Niệm Phật:</label>
+            <input type="text" id="cfg-chat-keyword" class="input-field" value="adidaphat, mophat" placeholder="adidaphat, mophat" />
+            <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">
+              Người xem gõ <b>"A Di Đà Phật"</b> hoặc <b>"Mô Phật"</b> đều tự động nhận diện xướng danh và nhận chỗ ngồi.
+            </div>
+          </div>
+
+          <!-- Tự động reset ghế khi đầy 60 chỗ -->
+          <div class="dashboard-grid" style="gap:12px; margin-top:10px; margin-bottom:0;">
+            <div class="form-group">
+              <label class="form-label">Tự Động Reset Khi Đầy 60 Ghế:</label>
+              <select id="cfg-auto-reset" class="input-field">
+                <option value="true" selected>Bật (Khóa lễ viên mãn & tự làm sạch)</option>
+                <option value="false">Tắt (Giữ nguyên luân chuyển LRU)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Thời Gian Đổi Khóa Mới (Giây):</label>
+              <input type="number" id="cfg-reset-delay" class="input-field" value="6" min="3" max="30" />
+            </div>
+          </div>
+
+          <!-- 4. Danh sách câu đối -->
+          <div class="form-group">
+            <label class="form-label">Cặp Câu Đối 2 Bên (Mỗi dòng 1 cặp, cách nhau bởi dấu gạch đứng "|"):</label>
+            <textarea id="cfg-couplets" class="input-field">Tâm bình thế giới bình | Tâm an vạn sự an
+Phật tại tâm khởi thiện | Phước tại đức lưu hương
+Bồ đề tâm kiên cố | Hoa sen ngát hương lành
+Lắng lòng nghe tiếng chuông | Phiền não tan mây khói</textarea>
+          </div>
+
+          <!-- 5. Âm lượng chuông & Giọng đọc AI -->
+          <div class="dashboard-grid" style="gap:12px; margin-bottom:14px;">
+            <div class="form-group">
+              <label class="form-label">Âm lượng Chuông Chùa (<span id="vol-display">80%</span>):</label>
+              <div class="slider-container">
+                <input type="range" id="cfg-bell-volume" class="slider" min="0" max="1" step="0.05" value="0.8" oninput="updateVolLabel(this.value)" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Giọng Đọc Cảm Ơn AI (TTS):</label>
+              <select id="cfg-tts-enabled" class="input-field">
+                <option value="true">Bật Giọng Đọc AI (vi-VN)</option>
+                <option value="false">Tắt Giọng Đọc</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- 6. Nhạc Nền Phật Giáo (BGM) -->
+          <div class="dashboard-grid" style="gap:12px; margin-bottom:10px;">
+            <div class="form-group">
+              <label class="form-label">Nhạc Nền Phật Giáo (BGM):</label>
+              <select id="cfg-bgm-enabled" class="input-field">
+                <option value="true" selected>Bật Nhạc Nền Phật (Du dương)</option>
+                <option value="false">Tắt Nhạc Nền</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Âm Lượng Nhạc Nền (<span id="bgm-vol-display">35%</span>):</label>
+              <div class="slider-container">
+                <input type="range" id="cfg-bgm-volume" class="slider" min="0" max="1" step="0.05" value="0.35" oninput="updateBgmVolLabel(this.value)" />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-top:-4px; margin-bottom:16px;">
+            <label class="form-label">Đường dẫn file MP3 Nhạc Nền Phật:</label>
+            <input type="text" id="cfg-bgm-source" class="input-field" value="/assets/buddhist_bgm.mp3" placeholder="/assets/buddhist_bgm.mp3" />
+            <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">
+              Mặc định phát bài kinh thiền Phật giáo du dương thanh tịnh. Bạn có thể dán link file MP3 niệm Phật khác nếu muốn.
+            </div>
+          </div>
+
+          <!-- 6. Ánh xạ Quà Tặng -> Lời Cầu Nguyện -->
+          <div class="form-group">
+            <label class="form-label">Ánh Xạ Quà Tặng -> Lời Cầu Nguyện:</label>
+            <table class="prayer-table" id="prayer-mapping-table">
+              <thead>
+                <tr>
+                  <th style="width: 35%;">Tên Quà Tặng</th>
+                  <th>Lời Cầu Nguyện</th>
+                  <th style="width: 30px;"></th>
+                </tr>
+              </thead>
+              <tbody id="prayer-table-body">
+                <!-- Hàng ánh xạ sinh bằng JS -->
+              </tbody>
+            </table>
+            <button type="button" class="btn btn-secondary" onclick="addPrayerRow('', '')" style="margin-top:8px; padding:6px 12px; font-size:12px;">
+              + Thêm Quà Mới
+            </button>
+          </div>
+
+          <div style="margin-top: 20px;">
+            <button class="btn btn-gold" style="width:100%; justify-content:center; padding:12px;" onclick="saveConfig()">
+              <span>💾</span> Lưu Và Áp Dụng Ngay Lên Overlay
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      Chùa Online - TikTok LIVE Game & Interactive Stream Overlay © 2026. Chạy trên Localhost Port 3002.
+    </div>
+
+  </div>
+
+  <!-- SCRIPT SOCKET.IO & ĐIỀU KHIỂN -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    let currentConfig = {};
+    let currentSeats = [];
+    let currentLeaderboard = [];
+
+    // Tạo sơ đồ 60 ô mini
+    const previewGrid = document.getElementById('seats-preview-grid');
+    for (let i = 0; i < 60; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'seat-dot';
+      dot.id = `seat-dot-${i}`;
+      dot.textContent = i + 1;
+      dot.setAttribute('data-tooltip', `Ghế #${i + 1}: Trống`);
+      previewGrid.appendChild(dot);
+    }
+
+    // ==========================================
+    // NHẬN DỮ LIỆU TỪ SERVER QUA SOCKET.IO
+    // ==========================================
+    socket.on('init_state', state => {
+      console.log('Init state:', state);
+      if (state.config) populateConfig(state.config);
+      if (state.seats) updateSeatsDisplay(state.seats);
+      if (state.leaderboard) updateLeaderboardDisplay(state.leaderboard);
+      if (state.tiktokStatus) updateTikTokStatus(state.tiktokStatus, state.currentTiktokId);
+    });
+
+    socket.on('config_update', cfg => {
+      populateConfig(cfg);
+    });
+
+    socket.on('seats_update', seats => {
+      updateSeatsDisplay(seats);
+    });
+
+    socket.on('leaderboard_update', lb => {
+      updateLeaderboardDisplay(lb);
+    });
+
+    socket.on('tiktok_status', data => {
+      updateTikTokStatus(data.status, data.uniqueId, data.message);
+    });
+
+    // ==========================================
+    // CẬP NHẬT HIỂN THỊ TRẠNG THÁI
+    // ==========================================
+    function updateSeatsDisplay(seats) {
+      currentSeats = seats;
+      let count = 0;
+      let totalDiamonds = 0;
+
+      for (let i = 0; i < 60; i++) {
+        const dot = document.getElementById(`seat-dot-${i}`);
+        if (!dot) continue;
+
+        const s = seats[i];
+        if (s) {
+          count++;
+          totalDiamonds += (s.totalDiamonds || 0);
+          dot.classList.add('active');
+          dot.setAttribute('data-tooltip', `#${i + 1}: ${s.nickname} (💎${s.totalDiamonds})`);
+        } else {
+          dot.classList.remove('active');
+          dot.setAttribute('data-tooltip', `Ghế #${i + 1}: Trống`);
+        }
+      }
+
+      document.getElementById('stat-seats').textContent = `${count} / 60`;
+    }
+
+    function updateLeaderboardDisplay(lb) {
+      currentLeaderboard = lb;
+      let sum = 0;
+      if (Array.isArray(lb) && lb.length > 0) {
+        lb.forEach(item => { sum += item.totalDiamonds; });
+        document.getElementById('stat-top1').textContent = `${lb[0].nickname} (💎${lb[0].totalDiamonds})`;
+      } else {
+        document.getElementById('stat-top1').textContent = '---';
+      }
+      document.getElementById('stat-diamonds').textContent = `💎 ${sum.toLocaleString('vi-VN')}`;
+    }
+
+    function updateTikTokStatus(status, uniqueId, message) {
+      const badge = document.getElementById('tiktok-status-badge');
+      const btnConnect = document.getElementById('btn-connect');
+      const btnDisconnect = document.getElementById('btn-disconnect');
+      const input = document.getElementById('tiktok-id-input');
+
+      if (uniqueId && !input.value) {
+        input.value = uniqueId;
+      }
+
+      badge.className = 'status-badge';
+
+      if (status === 'connected') {
+        badge.classList.add('status-connected');
+        badge.textContent = `🟢 Đã kết nối: @${uniqueId}`;
+        btnConnect.style.display = 'none';
+        btnDisconnect.style.display = 'inline-flex';
+      } else if (status === 'connecting') {
+        badge.classList.add('status-connecting');
+        badge.textContent = `🟡 Đang kết nối tới @${uniqueId}...`;
+        btnConnect.style.display = 'none';
+        btnDisconnect.style.display = 'inline-flex';
+      } else if (status === 'error') {
+        badge.classList.add('status-disconnected');
+        badge.textContent = `🔴 Lỗi: ${message || 'Không thể kết nối'}`;
+        btnConnect.style.display = 'inline-flex';
+        btnDisconnect.style.display = 'none';
+      } else {
+        badge.classList.add('status-disconnected');
+        badge.textContent = `⚪ Chưa kết nối`;
+        btnConnect.style.display = 'inline-flex';
+        btnDisconnect.style.display = 'none';
+      }
+    }
+
+    // ==========================================
+    // CÁC HÀM CẤU HÌNH & GIAO DIỆN
+    // ==========================================
+    function populateConfig(cfg) {
+      currentConfig = cfg;
+      document.getElementById('cfg-temple-title').value = cfg.templeTitle || '';
+      document.getElementById('cfg-lb-pos').value = cfg.leaderboardPosition || 'bottom-right';
+      document.getElementById('cfg-lb-show').value = cfg.showLeaderboard ? 'true' : 'false';
+      document.getElementById('cfg-couplets-show').value = (cfg.showCouplets !== false) ? 'true' : 'false';
+      document.getElementById('cfg-welcome-viewer').value = (cfg.welcomeViewer !== false) ? 'true' : 'false';
+      document.getElementById('cfg-chat-keyword').value = cfg.chatKeyword || 'adidaphat, mophat';
+      document.getElementById('cfg-auto-reset').value = (cfg.autoResetWhenFull !== false) ? 'true' : 'false';
+      document.getElementById('cfg-reset-delay').value = cfg.resetDelaySeconds !== undefined ? cfg.resetDelaySeconds : 6;
+      document.getElementById('cfg-bell-volume').value = cfg.bellVolume !== undefined ? cfg.bellVolume : 0.8;
+      updateVolLabel(cfg.bellVolume !== undefined ? cfg.bellVolume : 0.8);
+      document.getElementById('cfg-tts-enabled').value = cfg.ttsEnabled ? 'true' : 'false';
+      document.getElementById('cfg-bgm-enabled').value = (cfg.bgmEnabled !== false) ? 'true' : 'false';
+      document.getElementById('cfg-bgm-volume').value = cfg.bgmVolume !== undefined ? cfg.bgmVolume : 0.35;
+      updateBgmVolLabel(cfg.bgmVolume !== undefined ? cfg.bgmVolume : 0.35);
+      document.getElementById('cfg-bgm-source').value = cfg.bgmSource || '/assets/buddhist_bgm.mp3';
+
+      if (Array.isArray(cfg.couplets)) {
+        document.getElementById('cfg-couplets').value = cfg.couplets.map(pair => pair.join(' | ')).join('\n');
+      }
+
+      // Render bảng ánh xạ quà tặng
+      const tableBody = document.getElementById('prayer-table-body');
+      tableBody.innerHTML = '';
+      if (cfg.giftPrayers) {
+        for (const [gift, prayer] of Object.entries(cfg.giftPrayers)) {
+          addPrayerRow(gift, prayer);
+        }
+      }
+    }
+
+    function addPrayerRow(gift = '', prayer = '') {
+      const tableBody = document.getElementById('prayer-table-body');
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><input type="text" class="gift-key" value="${gift}" placeholder="Tên quà (VD: Rose)" /></td>
+        <td><input type="text" class="prayer-val" value="${prayer}" placeholder="Lời cầu (VD: Cầu Bình An)" /></td>
+        <td><button type="button" class="btn-icon-del" onclick="this.closest('tr').remove()">✖</button></td>
+      `;
+      tableBody.appendChild(tr);
+    }
+
+    function updateVolLabel(val) {
+      document.getElementById('vol-display').textContent = `${Math.round(val * 100)}%`;
+    }
+
+    function updateBgmVolLabel(val) {
+      document.getElementById('bgm-vol-display').textContent = `${Math.round(val * 100)}%`;
+    }
+
+    function saveConfig() {
+      // Đọc các giá trị từ form
+      const templeTitle = document.getElementById('cfg-temple-title').value.trim();
+      const leaderboardPosition = document.getElementById('cfg-lb-pos').value;
+      const showLeaderboard = document.getElementById('cfg-lb-show').value === 'true';
+      const showCouplets = document.getElementById('cfg-couplets-show').value === 'true';
+      const welcomeViewer = document.getElementById('cfg-welcome-viewer').value === 'true';
+      const chatKeyword = document.getElementById('cfg-chat-keyword').value.trim().toLowerCase();
+      const autoResetWhenFull = document.getElementById('cfg-auto-reset').value === 'true';
+      const resetDelaySeconds = parseInt(document.getElementById('cfg-reset-delay').value) || 6;
+      const bellVolume = parseFloat(document.getElementById('cfg-bell-volume').value);
+      const ttsEnabled = document.getElementById('cfg-tts-enabled').value === 'true';
+      const bgmEnabled = document.getElementById('cfg-bgm-enabled').value === 'true';
+      const bgmVolume = parseFloat(document.getElementById('cfg-bgm-volume').value);
+      const bgmSource = document.getElementById('cfg-bgm-source').value.trim() || '/assets/buddhist_bgm.mp3';
+
+      // Parse danh sách câu đối
+      const coupletsRaw = document.getElementById('cfg-couplets').value.split('\n');
+      const couplets = coupletsRaw
+        .map(line => line.split('|').map(s => s.trim()))
+        .filter(pair => pair.length === 2 && pair[0] && pair[1]);
+
+      // Parse bảng quà tặng
+      const giftPrayers = {};
+      const rows = document.querySelectorAll('#prayer-table-body tr');
+      rows.forEach(tr => {
+        const key = tr.querySelector('.gift-key').value.trim();
+        const val = tr.querySelector('.prayer-val').value.trim();
+        if (key && val) {
+          giftPrayers[key] = val;
+        }
+      });
+
+      const newConfig = {
+        templeTitle,
+        leaderboardPosition,
+        showLeaderboard,
+        showCouplets,
+        welcomeViewer,
+        chatKeyword,
+        autoResetWhenFull,
+        resetDelaySeconds,
+        bellVolume,
+        ttsEnabled,
+        bgmEnabled,
+        bgmVolume,
+        bgmSource,
+        couplets: couplets.length > 0 ? couplets : currentConfig.couplets,
+        giftPrayers: Object.keys(giftPrayers).length > 0 ? giftPrayers : currentConfig.giftPrayers
+      };
+
+      socket.emit('update_config', newConfig);
+      alert('Đã lưu và đồng bộ cấu hình thành công sang Overlay!');
+    }
+
+    // ==========================================
+    // HÀNH ĐỘNG KẾT NỐI TIKTOK
+    // ==========================================
+    function handleConnectTikTok() {
+      const id = document.getElementById('tiktok-id-input').value.trim();
+      const sessionInput = document.getElementById('tiktok-session-input');
+      const sessionId = sessionInput ? sessionInput.value.trim() : '';
+
+      if (!id) {
+        alert('Vui lòng nhập TikTok Unique ID!');
+        return;
+      }
+      socket.emit('connect_tiktok', { 
+        uniqueId: id,
+        sessionId: sessionId || undefined
+      });
+    }
+
+    function handleDisconnectTikTok() {
+      socket.emit('disconnect_tiktok');
+    }
+
+    // ==========================================
+    // BỘ NÚT BẤM GIẢ LẬP / MÔ PHỎNG (SIMULATION)
+    // ==========================================
+    function simAddMember(count) {
+      socket.emit('sim_add_member', count);
+    }
+
+    function simChatPray() {
+      socket.emit('sim_chat', 'Nam Mô A Di Đà Phật 🙏');
+    }
+
+    function simChatMoPhat() {
+      socket.emit('sim_chat', 'Mô Phật 🙏');
+    }
+
+    function simWelcome() {
+      socket.emit('sim_welcome');
+    }
+
+    function simLike() {
+      socket.emit('sim_like');
+    }
+
+    function simShare() {
+      socket.emit('sim_share');
+    }
+
+    function simFollow() {
+      socket.emit('sim_follow');
+    }
+
+    function simCustomChat() {
+      const input = document.getElementById('sim-custom-comment');
+      const text = input ? input.value.trim() : '';
+      if (!text) {
+        socket.emit('sim_chat', 'Nam Mô A Di Đà Phật 🙏');
+      } else {
+        socket.emit('sim_chat', text);
+        input.value = '';
+      }
+    }
+
+    function simGiftRose() {
+      socket.emit('sim_gift', {
+        name: 'Hoa Hồng',
+        diamonds: 1,
+        repeat: 1
+      });
+    }
+
+    function simGiftRoseCombo() {
+      socket.emit('sim_gift', {
+        name: 'Hoa Hồng',
+        diamonds: 1,
+        repeat: 10
+      });
+    }
+
+    function simGiftPeach() {
+      socket.emit('sim_gift', {
+        name: 'Quả Đào',
+        diamonds: 10,
+        repeat: 1
+      });
+    }
+
+    function simBigGift() {
+      socket.emit('sim_gift', {
+        name: 'Kim Long',
+        diamonds: 1000,
+        repeat: 1
+      });
+    }
+
+    function simFullReset() {
+      socket.emit('sim_full_reset');
+    }
+
+    function clearAllSeats() {
+      if (confirm('Bạn có chắc muốn làm trống toàn bộ 60 chỗ ngồi chánh điện?')) {
+        socket.emit('clear_seats');
+      }
+    }
+
+    let dashAudioCtx = null;
+    function playTempleBell() {
+      try {
+        if (!dashAudioCtx) {
+          dashAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (dashAudioCtx.state === 'suspended') {
+          dashAudioCtx.resume();
+        }
+        const now = dashAudioCtx.currentTime;
+        const freqs = [220, 440, 660, 880];
+        freqs.forEach((freq, idx) => {
+          const osc = dashAudioCtx.createOscillator();
+          const gain = dashAudioCtx.createGain();
+          osc.type = idx === 0 ? 'sine' : 'triangle';
+          osc.frequency.setValueAtTime(freq, now);
+          const vol = 0.35 / (idx + 1);
+          gain.gain.setValueAtTime(0, now);
+          gain.gain.linearRampToValueAtTime(vol, now + 0.03);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 3.0);
+          osc.connect(gain);
+          gain.connect(dashAudioCtx.destination);
+          osc.start(now);
+          osc.stop(now + 3.0);
+        });
+      } catch (e) {
+        console.warn('Audio play error:', e);
+      }
+    }
+
+    function testTempleBell() {
+      playTempleBell();
+      socket.emit('test_sound');
+    }
+
+    function reloadOverlay() {
+      socket.emit('reload_overlay');
+    }
+
+    function copyOverlayUrl() {
+      const url = `${window.location.origin}/overlay.html`;
+      navigator.clipboard.writeText(url).then(() => {
+        alert(`✅ Đã copy link Overlay:\n${url}\n\n⚠️ LƯU Ý ĐỂ NÉT CĂNG 100% TRÊN TIKTOK LIVE STUDIO:\n1. Vào cài đặt nguồn "Liên kết" (Browser Source)\n2. Sửa Chiều rộng (Width): 1080\n3. Sửa Chiều cao (Height): 1920\n4. Bấm biểu tượng ⤢ (Kéo vừa khung hình) trên thanh công cụ để tràn toàn màn hình dọc!`);
+      });
+    }
+  </script>
+</body>
+</html>
+
